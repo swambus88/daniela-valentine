@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniela 💘</title>
+  <style>
+    body{
+      margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      overflow:hidden;
+    }
+    .card{
+      background: rgba(255,255,255,0.9);
+      padding: 28px 24px;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+      text-align:center;
+      width:min(420px, 92vw);
+      position:relative;
+    }
+    h1{ margin:0 0 10px; font-size: 30px; }
+    p{ margin: 0 0 18px; font-size: 18px; }
+    .btns{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    button{
+      border:0; padding: 12px 18px; border-radius: 12px;
+      font-size: 16px; cursor:pointer;
+      transition: transform .08s ease;
+    }
+    button:active{ transform: scale(0.98); }
+    #yes{ background:#ff4d6d; color:white; }
+    #no{ background:#222; color:white; position:relative; }
+    .hearts{
+      position:fixed; inset:0; pointer-events:none;
+    }
+    .heart{
+      position:absolute; font-size:18px; opacity:0;
+      animation: floatUp 2.2s ease-in forwards;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) scale(0.9); opacity:0; }
+      15%{ opacity:1; }
+      100%{ transform: translateY(-140px) scale(1.35); opacity:0; }
+    }
+    .msg{
+      margin-top: 14px;
+      font-weight: 600;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Daniela 💘</h1>
+    <p>Will you be my Valentine?</p>
+    <div class="btns">
+      <button id="yes">Yes 💖</button>
+      <button id="no">No 🙈</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const no = document.getElementById('no');
+    const yes = document.getElementById('yes');
+    const msg = document.getElementById('msg');
+    const hearts = document.getElementById('hearts');
+
+    // Make the "No" button dodge
+    no.addEventListener('mouseenter', () => {
+      const x = Math.random() * 240 - 120;
+      const y = Math.random() * 140 - 70;
+      no.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    function popHearts(count=18){
+      for(let i=0;i<count;i++){
+        const s = document.createElement('div');
+        s.className = 'heart';
+        s.textContent = ['💖','💘','💝','💕','❤️'][Math.floor(Math.random()*5)];
+        s.style.left = (Math.random()*100) + 'vw';
+        s.style.top = (60 + Math.random()*30) + 'vh';
+        s.style.animationDelay = (Math.random()*0.2) + 's';
+        hearts.appendChild(s);
+        setTimeout(()=>s.remove(), 2300);
+      }
+    }
+
+    yes.addEventListener('click', () => {
+      msg.textContent = "YAY!! 🥰 I can’t wait 💞";
+      popHearts(28);
+      // Optional: change page title and disable buttons
+      document.title = "She said YES 💘";
+      yes.disabled = true;
+      no.disabled = true;
+      yes.style.opacity = 0.85;
+      no.style.opacity = 0.85;
+    });
+  </script>
+</body>
+</html>
